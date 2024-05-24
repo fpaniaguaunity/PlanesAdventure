@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class SimplePlaneController : MonoBehaviour
 {
+    private const float MODIFY_SPEED_DELAY = 0.1f;
+
     public float speed;
     public float maxSpeed;
     public float deltaSpeed;
@@ -13,6 +15,12 @@ public class SimplePlaneController : MonoBehaviour
     public float rotationSpeed;
     private float h, v, z;
 
+    public delegate void SpeedAction(float f);
+    public static event SpeedAction OnChangeSpeed = delegate {};
+
+    private void Start() {
+        OnChangeSpeed(speed);    
+    }
 
     void Update()
     {
@@ -21,6 +29,28 @@ public class SimplePlaneController : MonoBehaviour
         transform.Rotate(Vector3.right * v * angularSpeed * Time.deltaTime);
         transform.Rotate(Vector3.forward * z * rotationSpeed * Time.deltaTime);
     }
+
+    private void Accelerate()
+    {
+        if (speed < maxSpeed)
+        {
+            speed += deltaSpeed;
+            speed = Mathf.Min(speed, maxSpeed);
+            OnChangeSpeed(speed);
+        }
+    }
+
+    private void Decelerate()
+    {
+        if (speed > 0)
+        {
+            speed -= deltaSpeed;
+            speed = Mathf.Max(speed, 0);
+            OnChangeSpeed(speed);
+        }
+    }
+
+    #region Input Messages Managers
 
     private void OnMove(InputValue inputValue)
     {
@@ -37,18 +67,25 @@ public class SimplePlaneController : MonoBehaviour
     {
         if (value.isPressed)
         {
-            InvokeRepeating("Accelerate",0,0.1f);
-        } else {
+            InvokeRepeating("Accelerate", 0, MODIFY_SPEED_DELAY);
+        }
+        else
+        {
             CancelInvoke("Accelerate");
         }
     }
 
-    private void Accelerate()
+    private void OnDecelerate(InputValue value)
     {
-        if (speed<maxSpeed)
+        if (value.isPressed)
         {
-            speed+=deltaSpeed;
-            speed = Mathf.Min(speed, maxSpeed);
+            InvokeRepeating("Decelerate", 0, MODIFY_SPEED_DELAY);
+        }
+        else
+        {
+            CancelInvoke("Decelerate");
         }
     }
+
+    #endregion
 }

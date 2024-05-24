@@ -6,9 +6,11 @@ using UnityEngine;
 public class CanvasManager : MonoBehaviour
 {
     public TextMeshProUGUI textAltitude;
+    public TextMeshProUGUI textSpeed;
     void OnEnable()
     {
         AltitudeSensor.OnChangeAltitude += RefreshAltitude;
+        SimplePlaneController.OnChangeSpeed += RefreshSpeed;
     }
 
 
@@ -20,6 +22,10 @@ public class CanvasManager : MonoBehaviour
 
     void RefreshAltitude(float altitude)
     {
-        textAltitude.text = ((int)altitude).ToString("");
+        textAltitude.text = ((int)altitude)+" ft";
+    }
+    void RefreshSpeed(float speed)
+    {
+        textSpeed.text = ((int)speed)+" kn";
     }
 }
