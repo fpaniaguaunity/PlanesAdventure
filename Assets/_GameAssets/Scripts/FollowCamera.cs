@@ -13,6 +13,7 @@ namespace CameraUtil
         public float angle = 30f;
         public float followSpeed = 1f;
         public bool rotateCamera = true;
+        public bool movedByPhysics = true;
 
         private Vector3 VelReferencia;
 
@@ -37,7 +38,17 @@ namespace CameraUtil
 
         void Update()
         {
-            ManejoCamara();
+            if (!movedByPhysics)
+            {
+                ManejoCamara();
+            }
+        }
+        void FixedUpdate()
+        {
+            if (movedByPhysics)
+            {
+                ManejoCamara();
+            }
         }
 
 

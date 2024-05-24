@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO.Compression;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Scripting;
 
 public class SimplePlaneController : MonoBehaviour
 {
@@ -15,8 +16,15 @@ public class SimplePlaneController : MonoBehaviour
     public float rotationSpeed;
     private float h, v, z;
 
+    private Rigidbody characterRigidbody;
+
     public delegate void SpeedAction(float f);
     public static event SpeedAction OnChangeSpeed = delegate {};
+
+    private void Awake()
+    {
+        characterRigidbody = GetComponent<Rigidbody>();
+    }
 
     private void Start() {
         OnChangeSpeed(speed);    
@@ -24,10 +32,14 @@ public class SimplePlaneController : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        //transform.Translate(Vector3.forward * speed * Time.deltaTime);
         transform.Rotate(Vector3.up * h * angularSpeed * Time.deltaTime);
         transform.Rotate(Vector3.right * v * angularSpeed * Time.deltaTime);
         transform.Rotate(Vector3.forward * z * rotationSpeed * Time.deltaTime);
+    }
+    void FixedUpdate()
+    {
+        characterRigidbody.velocity = transform.forward * speed * Time.deltaTime;
     }
 
     private void Accelerate()
