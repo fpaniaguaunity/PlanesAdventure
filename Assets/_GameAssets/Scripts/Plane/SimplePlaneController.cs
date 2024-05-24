@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 public class SimplePlaneController : MonoBehaviour
 {
     public float speed;
+    public float maxSpeed;
+    public float deltaSpeed;
     public float angularSpeed;
     public float rotationSpeed;
     private float h, v, z;
@@ -29,5 +31,24 @@ public class SimplePlaneController : MonoBehaviour
     private void OnRotate(InputValue inputValue)
     {
         z = inputValue.Get<Vector2>().x;
+    }
+
+    private void OnAccelerate(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            InvokeRepeating("Accelerate",0,0.1f);
+        } else {
+            CancelInvoke("Accelerate");
+        }
+    }
+
+    private void Accelerate()
+    {
+        if (speed<maxSpeed)
+        {
+            speed+=deltaSpeed;
+            speed = Mathf.Min(speed, maxSpeed);
+        }
     }
 }
