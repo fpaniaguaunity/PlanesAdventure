@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.80549127, g: 0.30138725, b: 0.70921385, a: 1}
+  m_IndirectSpecularColor: {r: 0.80549157, g: 0.30138862, b: 0.70921284, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3014,7 +3014,6 @@ GameObject:
   - component: {fileID: 1434284013}
   - component: {fileID: 1434284014}
   - component: {fileID: 1434284015}
-  - component: {fileID: 1434284019}
   - component: {fileID: 1434284017}
   - component: {fileID: 1434284018}
   - component: {fileID: 1434284020}
@@ -3056,6 +3055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   maxSpeed: 1000
+  minFlySpeed: 250
   deltaSpeed: 10
   angularSpeed: 20
   rotationSpeed: -25
@@ -3080,7 +3080,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1434284011}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 757
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -3094,10 +3094,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1434284018
 MonoBehaviour:
@@ -3129,19 +3129,6 @@ MonoBehaviour:
   m_DefaultActionMap: Plane
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1434284019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1434284011}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bddf3d52e05b1bc4ca1799b5725ae20e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabExplosion: {fileID: 2298644212037165836, guid: 7f65b7d4c656327418eec4c81e0e0979, type: 3}
 --- !u!82 &1434284020
 AudioSource:
   m_ObjectHideFlags: 0

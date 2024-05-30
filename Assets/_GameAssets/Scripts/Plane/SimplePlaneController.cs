@@ -11,6 +11,8 @@ public class SimplePlaneController : MonoBehaviour
 
     public float speed;
     public float maxSpeed;
+
+    public float minFlySpeed;
     public float deltaSpeed;
     public float angularSpeed;
     public float rotationSpeed;
@@ -40,6 +42,11 @@ public class SimplePlaneController : MonoBehaviour
     void FixedUpdate()
     {
         characterRigidbody.velocity = transform.forward * speed * Time.deltaTime;
+        if (speed<minFlySpeed)
+        {
+            characterRigidbody.AddForce(Vector3.down * 1000 * Time.deltaTime);    
+        }
+        
     }
 
     private void Accelerate()
